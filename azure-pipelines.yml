@@ -1,0 +1,25 @@
+trigger:
+  branches:
+    include:
+      - master  # or whatever your ADO default branch is
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- checkout: self
+  fetchDepth: 0  # Full history ensures safe branching
+
+- script: |
+    git config --global user.email $(GITHUB_EMAIL)
+    git config --global user.name "Josiah Wirick"
+
+    git checkout -b master
+
+    git branch
+    git log --oneline -n 3
+
+    git remote add github https://josiahwirick:$(GITHUB_PAT)@github.com/JosiahWirick/look.git
+    git push --force github master:master
+  env:
+    GITHUB_PAT: $(GITHUB_PAT)
