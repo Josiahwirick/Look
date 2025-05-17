@@ -1,7 +1,7 @@
-[gd_scene load_steps=212 format=4 uid="uid://b6044q0xwi16l"]
+[gd_scene load_steps=211 format=4 uid="uid://b6044q0xwi16l"]
 
-[ext_resource type="Script" path="res://Scripts/level.gd" id="1_cgjwo"]
-[ext_resource type="Script" path="res://Scripts/anomaly.gd" id="2_q3cl5"]
+[ext_resource type="Script" uid="uid://bwiu5utxuj4ac" path="res://Scripts/level.gd" id="1_cgjwo"]
+[ext_resource type="Script" uid="uid://dt2sve04mra0e" path="res://Scripts/anomaly.gd" id="2_q3cl5"]
 [ext_resource type="PackedScene" uid="uid://d4mm48isi8u6s" path="res://Fbx/Prop_Rug_03.fbx" id="3_8p0y5"]
 [ext_resource type="PackedScene" uid="uid://1vunh77qhqf2" path="res://Fbx/Prop_KitchenSink_Blue.fbx" id="4_r717o"]
 [ext_resource type="PackedScene" uid="uid://b6d2lserlpsso" path="res://Fbx/Prop_Fridge_01.fbx" id="5_wxuk2"]
@@ -52,7 +52,6 @@
 [ext_resource type="PackedScene" uid="uid://bmndqjiweql6i" path="res://Fbx/Prop_Tv_01.fbx" id="45_b1tvv"]
 [ext_resource type="PackedScene" uid="uid://dp7jkmjydgs5c" path="res://Fbx/Prop_Joystick.fbx" id="46_rmnpr"]
 [ext_resource type="PackedScene" uid="uid://caprsuefa5pgv" path="res://Fbx/Prop_Books_01.fbx" id="47_pes24"]
-[ext_resource type="Script" path="res://skeleton_ik_3d.gd" id="48_bth56"]
 [ext_resource type="PackedScene" uid="uid://cg258y2akvfbl" path="res://Fbx/Prop_Shelf_013.fbx" id="48_fya56"]
 [ext_resource type="PackedScene" uid="uid://clyaiv41n4qcc" path="res://Fbx/Prop_SingleBed_Yellow.fbx" id="49_e4qlw"]
 [ext_resource type="PackedScene" uid="uid://dc5oc87qv02d8" path="res://Fbx/Prop_Lamp_01.fbx" id="50_vp3bc"]
@@ -109,15 +108,15 @@
 [ext_resource type="PackedScene" uid="uid://qtlo5ab7gebu" path="res://Fbx/Window.fbx" id="96_sjb5k"]
 [ext_resource type="PackedScene" uid="uid://1tl3nslwbn16" path="res://Fbx/Floor_Vinyl.fbx" id="97_8v1s3"]
 [ext_resource type="Theme" uid="uid://rukthqj34jpd" path="res://theme.tres" id="98_xa71y"]
-[ext_resource type="Shader" path="res://glitch.gdshader" id="99_2v1iu"]
+[ext_resource type="Shader" uid="uid://bptruwnd3j2oh" path="res://glitch.gdshader" id="99_2v1iu"]
 [ext_resource type="AudioStream" uid="uid://df51v4xfhmjw0" path="res://Audio/glitch-effect.mp3" id="100_iybuu"]
 [ext_resource type="AudioStream" uid="uid://bri7aoauyl6yy" path="res://Audio/spooky-ambiance-4.mp3" id="101_hh8sv"]
-[ext_resource type="Shader" path="res://overview.gdshader" id="101_imyno"]
+[ext_resource type="Shader" uid="uid://bflxpjjlftafl" path="res://overview.gdshader" id="101_imyno"]
 [ext_resource type="AudioStream" uid="uid://v1kmcitxig1" path="res://Audio/wood-creak-single-v2.mp3" id="102_d1vgp"]
 [ext_resource type="AudioStream" uid="uid://dji3gaoarpu6o" path="res://Audio/reset-effect.mp3" id="102_eyjdw"]
 [ext_resource type="AudioStream" uid="uid://cbhrsp3se814l" path="res://Audio/old-wood-creaking-building.mp3" id="102_type4"]
-[ext_resource type="Script" path="res://Scripts/anomaly_alarm.gd" id="103_nq03f"]
-[ext_resource type="Script" path="res://Scripts/tutorial_intro.gd" id="104_20tiy"]
+[ext_resource type="Script" uid="uid://dxkh7cnfkhw02" path="res://Scripts/anomaly_alarm.gd" id="103_nq03f"]
+[ext_resource type="Script" uid="uid://tecjykwcu378" path="res://Scripts/tutorial_intro.gd" id="104_20tiy"]
 [ext_resource type="AudioStream" uid="uid://du64kx8fhfmak" path="res://Audio/wind-ambience.mp3" id="104_u827c"]
 [ext_resource type="AudioStream" uid="uid://dh1ohlthpcjah" path="res://Audio/rain-on-window.mp3" id="105_16o7q"]
 
@@ -154,8 +153,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y6md6"]
 _data = {
-"MOVED": SubResource("Animation_3ti13"),
-"RESET": SubResource("Animation_iiet4")
+&"MOVED": SubResource("Animation_3ti13"),
+&"RESET": SubResource("Animation_iiet4")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lho0j"]
@@ -267,8 +266,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w2nrs"]
 _data = {
-"MOVED": SubResource("Animation_pht5p"),
-"RESET": SubResource("Animation_qn5um")
+&"MOVED": SubResource("Animation_pht5p"),
+&"RESET": SubResource("Animation_qn5um")
 }
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_xeq4j"]
@@ -1086,8 +1085,8 @@ tracks/50/keys = PackedFloat32Array(-0.00833333, 1, 0.0166464, -0.0965253, 0.169
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0wypd"]
 _data = {
-"REPORTED": SubResource("Animation_62sfg"),
-"Take 001": SubResource("Animation_poq4i")
+&"REPORTED": SubResource("Animation_62sfg"),
+&"Take 001": SubResource("Animation_poq4i")
 }
 
 [sub_resource type="Animation" id="Animation_scggo"]
@@ -1926,9 +1925,9 @@ tracks/38/keys = PackedFloat32Array(0, 1, 1.26362e-05, 4.21468e-08, -4.21468e-08
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r6gbs"]
 _data = {
-"IDLE": SubResource("Animation_scggo"),
-"laying": SubResource("Animation_hg2o2"),
-"sittingIdle": SubResource("Animation_22orv")
+&"IDLE": SubResource("Animation_scggo"),
+&"laying": SubResource("Animation_hg2o2"),
+&"sittingIdle": SubResource("Animation_22orv")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7h84o"]
@@ -2154,7 +2153,7 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hturl"]
 _data = {
-"RESET": SubResource("Animation_gqxqj")
+&"RESET": SubResource("Animation_gqxqj")
 }
 
 [sub_resource type="Animation" id="Animation_5bvxn"]
@@ -2190,8 +2189,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wmk4r"]
 _data = {
-"MOVED": SubResource("Animation_5bvxn"),
-"RESET": SubResource("Animation_el3es")
+&"MOVED": SubResource("Animation_5bvxn"),
+&"RESET": SubResource("Animation_el3es")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fvyhw"]
@@ -2321,8 +2320,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_va7pm"]
 _data = {
-"MOVED": SubResource("Animation_hqrx2"),
-"RESET": SubResource("Animation_wlv7q")
+&"MOVED": SubResource("Animation_hqrx2"),
+&"RESET": SubResource("Animation_wlv7q")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i7qkr"]
@@ -3167,9 +3166,9 @@ tracks/38/keys = PackedFloat32Array(0, 1, 1.26362e-05, 4.21468e-08, -4.21468e-08
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gtydt"]
 _data = {
-"IDLE": SubResource("Animation_wxrp6"),
-"laying": SubResource("Animation_hv17w"),
-"sittingIdle": SubResource("Animation_me3aa")
+&"IDLE": SubResource("Animation_wxrp6"),
+&"laying": SubResource("Animation_hv17w"),
+&"sittingIdle": SubResource("Animation_me3aa")
 }
 
 [sub_resource type="Curve" id="Curve_5cxxd"]
@@ -3294,8 +3293,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ney1a"]
 _data = {
-"MOVED": SubResource("Animation_r8ndo"),
-"RESET": SubResource("Animation_7wy66")
+&"MOVED": SubResource("Animation_r8ndo"),
+&"RESET": SubResource("Animation_7wy66")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qddp6"]
@@ -3393,8 +3392,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4jxpq"]
 _data = {
-"MOVED": SubResource("Animation_dqxaq"),
-"RESET": SubResource("Animation_nyax1")
+&"MOVED": SubResource("Animation_dqxaq"),
+&"RESET": SubResource("Animation_nyax1")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dxm3w"]
@@ -3479,8 +3478,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6xxq4"]
 _data = {
-"MOVED": SubResource("Animation_wq65y"),
-"RESET": SubResource("Animation_rtt4e")
+&"MOVED": SubResource("Animation_wq65y"),
+&"RESET": SubResource("Animation_rtt4e")
 }
 
 [sub_resource type="Animation" id="Animation_4eq0d"]
@@ -3530,8 +3529,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lywyy"]
 _data = {
-"MOVED": SubResource("Animation_4eq0d"),
-"RESET": SubResource("Animation_na6ob")
+&"MOVED": SubResource("Animation_4eq0d"),
+&"RESET": SubResource("Animation_na6ob")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c1yrf"]
@@ -3748,7 +3747,7 @@ moved = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="LevelProps/Kitchen/Prop_WallArt_05"]
 libraries = {
-"": SubResource("AnimationLibrary_y6md6")
+&"": SubResource("AnimationLibrary_y6md6")
 }
 
 [node name="Prop_Oven_White2" parent="LevelProps/Kitchen" instance=ExtResource("14_r203l")]
@@ -3816,7 +3815,7 @@ moved = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="LevelProps/Kitchen/AnomalyFloor"]
 libraries = {
-"": SubResource("AnimationLibrary_w2nrs")
+&"": SubResource("AnimationLibrary_w2nrs")
 }
 
 [node name="Prop_Fork_02" parent="LevelProps/Kitchen" instance=ExtResource("25_fayoe")]
@@ -4204,8 +4203,8 @@ skin = SubResource("Skin_f6f8p")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="LevelProps/Kitchen/Ghoul"]
 libraries = {
-"": SubResource("AnimationLibrary_0wypd"),
-"Animations": SubResource("AnimationLibrary_r6gbs")
+&"": SubResource("AnimationLibrary_0wypd"),
+&"Animations": SubResource("AnimationLibrary_r6gbs")
 }
 autoplay = "Animations/IDLE"
 
@@ -4622,15 +4621,14 @@ skin = SubResource("Skin_ps7x8")
 root_bone = &"Neck"
 tip_bone = &"Head"
 target_node = NodePath("../Marker3D")
-script = ExtResource("48_bth56")
 
 [node name="Marker3D" type="Marker3D" parent="LevelProps/LivingRoom/Yokai/GeneralSkeleton"]
 transform = Transform3D(-0.686765, -0.429358, 0.586519, 0.0919759, 0.749084, 0.656059, -0.721037, 0.504504, -0.474954, 2.30769, 3.15385, -4.15385)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="LevelProps/LivingRoom/Yokai"]
 libraries = {
-"": SubResource("AnimationLibrary_hturl"),
-"Animations": ExtResource("32_qacwt")
+&"": SubResource("AnimationLibrary_hturl"),
+&"Animations": ExtResource("32_qacwt")
 }
 autoplay = "Animations/sittingIdle"
 
@@ -4716,7 +4714,7 @@ moved = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="LevelProps/LivingRoom/AnomalyBigBooks"]
 libraries = {
-"": SubResource("AnimationLibrary_wmk4r")
+&"": SubResource("AnimationLibrary_wmk4r")
 }
 
 [node name="Prop_Books_04" parent="LevelProps/LivingRoom" instance=ExtResource("47_pes24")]
@@ -4882,7 +4880,7 @@ moved = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="LevelProps/Bedroom/Prop_Plant_04"]
 libraries = {
-"": SubResource("AnimationLibrary_va7pm")
+&"": SubResource("AnimationLibrary_va7pm")
 }
 
 [node name="Prop_Vcr2" parent="LevelProps/Bedroom" instance=ExtResource("69_s84v6")]
@@ -4939,7 +4937,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_i7qkr")
 
 [node name="AnimationPlayer" parent="LevelProps/Bedroom/SM_Chr_Gimp_01" index="1"]
 libraries = {
-"Animations": SubResource("AnimationLibrary_gtydt")
+&"Animations": SubResource("AnimationLibrary_gtydt")
 }
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="LevelProps/Bedroom" groups=["anomaly"]]
@@ -5023,7 +5021,7 @@ mesh = SubResource("ArrayMesh_lmgwx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="LevelProps/Hallway/AnomalyChest"]
 libraries = {
-"": SubResource("AnimationLibrary_ney1a")
+&"": SubResource("AnimationLibrary_ney1a")
 }
 
 [node name="Prop_WallArt_04" parent="LevelProps/Hallway" instance=ExtResource("79_chvx0")]
@@ -5076,7 +5074,7 @@ moved = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="LevelProps/Bathroom/AnomalySeat"]
 libraries = {
-"": SubResource("AnimationLibrary_4jxpq")
+&"": SubResource("AnimationLibrary_4jxpq")
 }
 
 [node name="Prop_Toilet_03" parent="LevelProps/Bathroom" instance=ExtResource("85_hlgqe")]
@@ -5137,7 +5135,7 @@ moved = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="LevelProps/Bathroom/Prop_BathMat_Blue2"]
 libraries = {
-"": SubResource("AnimationLibrary_6xxq4")
+&"": SubResource("AnimationLibrary_6xxq4")
 }
 
 [node name="Prop_ToiletRoll_03" parent="LevelProps/Bathroom" instance=ExtResource("89_io5ck")]
@@ -5161,7 +5159,7 @@ moved = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="LevelProps/Bathroom/Door2"]
 libraries = {
-"": SubResource("AnimationLibrary_lywyy")
+&"": SubResource("AnimationLibrary_lywyy")
 }
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="LevelProps/Bathroom/Door2"]
@@ -5819,7 +5817,6 @@ text = "Quit"
 [connection signal="bugged" from="LevelProps/Kitchen/Camera4" to="." method="_on_camera_bugged"]
 [connection signal="not_bugged" from="LevelProps/Kitchen/Camera4" to="." method="_on_not_bugged"]
 [connection signal="visibility_changed" from="LevelProps/Kitchen/AnomalyRug" to="." method="_on_anomaly_rug_visibility_changed"]
-[connection signal="visibility_changed" from="LevelProps/Kitchen/AnomalyGarbage" to="." method="_on_anomaly_garbage_visibility_changed"]
 [connection signal="visibility_changed" from="LevelProps/Kitchen/AnomalyWasher" to="." method="_on_anomaly_washer_visibility_changed"]
 [connection signal="bugged" from="LevelProps/LivingRoom/Camera2" to="." method="_on_camera_bugged"]
 [connection signal="not_bugged" from="LevelProps/LivingRoom/Camera2" to="." method="_on_not_bugged"]
@@ -5844,8 +5841,8 @@ text = "Quit"
 [connection signal="pressed" from="Control/ReportMargin/ReportTypes/CameraBug" to="." method="_on_camera_bug_pressed"]
 [connection signal="pressed" from="Control/ReportMargin/ReportTypes/Lights" to="." method="_on_lights_pressed"]
 [connection signal="pressed" from="Control/ReportMargin/ReportTypes/Intruder" to="." method="_on_intruder_pressed"]
-[connection signal="pressed" from="Control/CameraBack" to="." method="_on_camera_back_pressed"]
-[connection signal="pressed" from="Control/CameraForward" to="." method="_on_camera_forward_pressed"]
+[connection signal="pressed" from="Control/CameraBack" to="." method="cam_left"]
+[connection signal="pressed" from="Control/CameraForward" to="." method="cam_right"]
 [connection signal="timeout" from="Control/Countdown/Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Control/AnomalySpawner" to="." method="_on_anomaly_spawner_timeout"]
 [connection signal="visibility_changed" from="Control/AnomalyAlarm" to="Control/AnomalyAlarm" method="_on_visibility_changed"]
