@@ -8,14 +8,9 @@ signal intruder_reported
 @onready var anomaly_spawner: Timer = $Control/AnomalySpawner
 @onready var room_label: Label = $Control/RoomLabel
 
-
-## Camera references
-@onready var camera_1: Camera3D = %Camera1 # Hallway
-@onready var camera_2: Camera3D = %Camera2 # Living room
-@onready var camera_3: Camera3D = %Camera3 # Bedroom
-@onready var camera_4: Camera3D = %Camera4 # Kitchen
-@onready var camera_5: Camera3D = %Camera5 # Bathroom
-@onready var cameras = get_tree().get_nodes_in_group("camera")
+## Camera references.
+## Populate list of cameras. Room label is set to the name of the camera node.
+@export var cameras: Array[Camera3D] = [] 
 @onready var current_camera : Camera3D
 
 ## Reporting buttons
@@ -47,20 +42,25 @@ signal intruder_reported
 var activated : Array = []
 
 var active_number: int = 0
+## Tracks time between spawned anomalies to ensure there's no more than a few failed
+## spawns in a row
 var spawn_gap: float = 0
+var spawn_threshold := 50.0
 
 ## Reporting flag
 var reporting := false
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	camera_1.current = true
+	cameras[0].current = true
 	update_label()
 	self.process_mode = PROCESS_MODE_DISABLED
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	spawn_gap += 1 * delta
+	spawn_gap += 1.0 * delta
+	if spawn_gap > spawn_threshold:
+		spawn_anomaly()
 	#print(spawn_gap)
 	
 	if Input.is_action_just_pressed("left"):
@@ -68,18 +68,16 @@ func _process(delta: float) -> void:
 	elif Input.is_action_just_pressed("right"):
 		switch_camera(1)
 
+	## Current camera check, used for validating reported anomaly type in
+	## monitored room
+	for cam in cameras:
+		if cam.current == true:
+			current_camera = cam
 	
 	## Room Label updater
-	if camera_1.current:
-		room_label.text = "Hallway"
-	elif camera_2.current:
-		room_label.text = "Living Room"
-	elif camera_3.current:
-		room_label.text = "Bedroom"
-	elif camera_4.current:
-		room_label.text = "Kitchen"
-	elif camera_5.current:
-		room_label.text = "Bathroom"
+	if current_camera:# in camera_labels:
+		room_label.text = str(current_camera.name)
+	
 	
 	if minute <= 0 and seconds <= 0 or Input.is_action_just_pressed("ui_cancel"):
 		reset_effect.show()
@@ -89,11 +87,6 @@ func _process(delta: float) -> void:
 		get_tree().reload_current_scene()
 		
 	
-	## Current camera check, used for validating reported anomaly type in
-	## monitored room
-	for cam in cameras:
-		if cam.current == true:
-			current_camera = cam
 
 	## Logic for tracking active anomalies here, should increase the counter
 	## through the spawning, and decrease from correct reports
@@ -115,11 +108,9 @@ func _process(delta: float) -> void:
 	elif !report_button.visible:
 		report_types.visible = true
 
-
 # Universal timer
 func wait_time(time: int):
 	get_tree().create_timer(time).timeout
-
 
 ## Currently this is set to not retry spawning an anomaly if the random target
 ## is already visible. In theory this should prevent being overwhelmed with anomalies
@@ -127,23 +118,20 @@ func wait_time(time: int):
 func spawn_anomaly() -> void:
 	var anomalies = get_tree().get_nodes_in_group("anomaly")
 	var target = anomalies.pick_random()
-	#print("Anomaly List(big): " + str(anomalies))
-	#if target == AnimationPlayer:
-		#spawn_anomaly()
 	if target.activated == false and not activated.has(target):
 		target.activated = true
 		activated.append(target)
 		active_number +=1
-		spawn_gap = 0
+		spawn_gap = 0.0
 
 
 func switch_camera(direction: int) -> void:
-	var camera_list = [camera_1, camera_2, camera_3, camera_4, camera_5]
-	var current_index = camera_list.find(current_camera)
+	if cameras.size() == 0:
+		return
+	var current_index = cameras.find(current_camera)
 
-	current_index = (current_index + direction) % camera_list.size()
-	current_camera.current = false
-	current_camera = camera_list[current_index]
+	current_index = (current_index + direction) % cameras.size()
+	current_camera = cameras[current_index]
 	current_camera.current = true
 	AudioController.play_effect("click")
 
@@ -155,25 +143,12 @@ func cam_left() -> void:
 func cam_right() -> void:
 	switch_camera(1)
 
-
 # Countdown timer logic
 func update_label() -> void:
 	countdown.text = str(minute) + ":" + str(seconds)
 	if seconds < 10:
 		countdown.text = str(minute) + ":0" + str(seconds)
 
-## Math to count down the timer and update label
-#func _on_timer_timeout() -> void:
-	#if seconds == 00:
-		#if minute > 0:
-			#minute -= 1
-			#seconds = 59
-	#else:
-		#seconds -= 1
-	#if minute == 0 and seconds == 0:
-		#minute = 0
-		#seconds = 0
-	#update_label()
 
 func _on_timer_timeout() -> void:
 	seconds -= 1
@@ -196,8 +171,8 @@ func _on_anomaly_spawner_timeout() -> void:
 	var chance = randi() % 6 - diff_mult
 	if chance == 1:
 		spawn_anomaly()
-	elif spawn_gap > 50:
-		spawn_anomaly()
+	#elif spawn_gap > 50.0:
+		#spawn_anomaly()
 	#print("Active anomalies: " +str(active_number))
 
 
@@ -300,28 +275,28 @@ func _on_not_bugged() -> void:
 func _on_easy_pressed() -> void:
 	diff_mult = 1
 	anomaly_spawner.wait_time = 20
+	spawn_threshold *= 1.2
 	%Menu.hide()
 	%TutorialIntro.show()
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	#%Level.process_mode = Node.PROCESS_MODE_ALWAYS
 
 
 func _on_medium_pressed() -> void:
 	anomaly_spawner.wait_time = 20
 	diff_mult = 2
+	spawn_threshold *= 1
 	%Menu.hide()
 	%TutorialIntro.show()
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	#%Level.process_mode = Node.PROCESS_MODE_ALWAYS
 
 
 func _on_hard_pressed() -> void:
 	diff_mult = 3
+	spawn_threshold *= 0.8
 	anomaly_spawner.wait_time = 15
 	%Menu.hide()
 	%TutorialIntro.show()
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	#%Level.process_mode = Node.PROCESS_MODE_ALWAYS
 
 
 func _on_quit_pressed() -> void:
