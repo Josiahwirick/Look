@@ -82,13 +82,11 @@
 [ext_resource type="PackedScene" uid="uid://c1h3t5lur7pv0" path="res://Fbx/Prop_Rug_04.fbx" id="74_yd7ed"]
 [ext_resource type="PackedScene" uid="uid://bnwc7ccro1aai" path="res://Characters/Gimpy.tscn" id="75_c8rkr"]
 [ext_resource type="PackedScene" uid="uid://dyjhxv2jhq1m4" path="res://Fbx/Door.fbx" id="75_yq0ng"]
-[ext_resource type="PackedScene" uid="uid://d22gmsktkwtov" path="res://Fbx/Prop_Foot_Rest_01.fbx" id="76_1vb7i"]
 [ext_resource type="Texture2D" uid="uid://bqbdllw25scct" path="res://Characters/Textures/PolygonHorror_Texture_01_C.png" id="76_qpoxq"]
 [ext_resource type="PackedScene" uid="uid://b6ojf2tc6pxlh" path="res://Fbx/Prop_Flower_Pot_01.fbx" id="77_d543h"]
 [ext_resource type="AudioStream" uid="uid://dk511ytkpjssy" path="res://Audio/crackling-fire-229156.mp3" id="78_80ioe"]
 [ext_resource type="PackedScene" uid="uid://bxohm7peh424d" path="res://Fbx/Prop_Insect_Frame_03.fbx" id="78_ig8af"]
 [ext_resource type="PackedScene" uid="uid://dlphsvia4ffpq" path="res://Fbx/Prop_WallArt_01.fbx" id="79_chvx0"]
-[ext_resource type="PackedScene" uid="uid://facc5tqdympb" path="res://Fbx/Prop_Foot_Rest_02.fbx" id="80_hemky"]
 [ext_resource type="PackedScene" uid="uid://r36neaafrajs" path="res://Fbx/Prop_Insect_Frame_01.fbx" id="81_8f1wb"]
 [ext_resource type="PackedScene" uid="uid://dqf0ytxlhl0h8" path="res://Fbx/Prop_Insect_Frame_02.fbx" id="82_1eaqw"]
 [ext_resource type="PackedScene" uid="uid://dh7nkxwkqad6k" path="res://Fbx/Prop_BathroomCabinet_White1.fbx" id="83_tt305"]
@@ -96,6 +94,7 @@
 [ext_resource type="PackedScene" uid="uid://dhoe6okvpa5ss" path="res://Fbx/Prop_Toilet_01.fbx" id="85_hlgqe"]
 [ext_resource type="Material" uid="uid://2ju7mubhvkf3" path="res://Fbx/Materials/lambert2.tres" id="86_xspfd"]
 [ext_resource type="PackedScene" uid="uid://buky0bcskuiyt" path="res://Fbx/Prop_BathFull1.fbx" id="87_sw1or"]
+[ext_resource type="PackedScene" uid="uid://yocioreid3kp" path="res://Assets/Props/stool_white.glb" id="88_52qux"]
 [ext_resource type="PackedScene" uid="uid://bm3yhyupob5op" path="res://Fbx/Prop_BathMat_Blue.fbx" id="88_p5pg5"]
 [ext_resource type="PackedScene" uid="uid://ca5utru3doaqk" path="res://Fbx/Prop_ToiletRoll_02.fbx" id="89_io5ck"]
 [ext_resource type="PackedScene" uid="uid://bx53ow3cg8lwi" path="res://Fbx/Prop_TowelBig_Grey.fbx" id="90_8khku"]
@@ -3367,6 +3366,9 @@ _data = {
 &"RESET": SubResource("Animation_7wy66")
 }
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5yxpw"]
+albedo_color = Color(0.843137, 0, 0, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qddp6"]
 resource_name = "Interiors:lambert121"
 vertex_color_use_as_albedo = true
@@ -5128,9 +5130,6 @@ script = ExtResource("2_q3cl5")
 replaced = true
 replace_target = NodePath("../Prop_Door_03")
 
-[node name="Prop_Foot_Rest_03" parent="LevelProps/Hallway" instance=ExtResource("76_1vb7i")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -2)
-
 [node name="Prop_Flower_Pot_02" parent="LevelProps/Hallway" instance=ExtResource("77_d543h")]
 transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -12, 0, 2)
 
@@ -5154,12 +5153,18 @@ libraries = {
 [node name="Prop_WallArt_04" parent="LevelProps/Hallway" instance=ExtResource("79_chvx0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 3, -2.5)
 
-[node name="AnomalyFootRest" parent="LevelProps/Hallway" node_paths=PackedStringArray("replace_target") groups=["anomaly"] instance=ExtResource("80_hemky")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -2)
+[node name="stool_white" parent="LevelProps/Hallway" node_paths=PackedStringArray("replace_target") groups=["anomaly"] instance=ExtResource("88_52qux")]
+transform = Transform3D(1.51114, 0, 0, 0, 1.07556, 0, 0, 0, 1.10263, -11, 0, -1.89292)
 visible = false
 script = ExtResource("2_q3cl5")
 replaced = true
-replace_target = NodePath("../Prop_Foot_Rest_03")
+replace_target = NodePath("../stool_red")
+
+[node name="stool_red" parent="LevelProps/Hallway" instance=ExtResource("88_52qux")]
+transform = Transform3D(1.51114, 0, 0, 0, 1.07556, 0, 0, 0, 1.10263, -11, 0, -1.89292)
+
+[node name="cushion_" parent="LevelProps/Hallway/stool_red" index="5"]
+surface_material_override/0 = SubResource("StandardMaterial3D_5yxpw")
 
 [node name="Prop_Insect_Frame_05" parent="LevelProps/Hallway" instance=ExtResource("81_8f1wb")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -9.1, 1.6, 2.414)
@@ -5980,3 +5985,4 @@ text = "Quit"
 
 [editable path="LevelProps/Kitchen/Ghoul/SM_Chr_Ghoul_01"]
 [editable path="LevelProps/Bedroom/SM_Chr_Gimp_01"]
+[editable path="LevelProps/Hallway/stool_red"]
