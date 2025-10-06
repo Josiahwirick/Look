@@ -43,7 +43,7 @@ var fired := false
 var fixed := false
 var animation_done: bool = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	#glitch_effect.hide()
 	# Core anomaly logic
 	if activated: # Enable anomaly behavior

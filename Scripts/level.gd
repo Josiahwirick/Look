@@ -158,7 +158,7 @@ func report_anomaly(type: String) -> void:
 	
 	if fix_queue.size() > 0:
 		await trigger_reset_effect()
-		await process_fix_queue(fix_queue, type)
+		process_fix_queue(fix_queue, type)
 	
 	reporting = false
 
