@@ -1,25 +1,120 @@
 trigger:
   branches:
     include:
-      - master  # or whatever your ADO default branch is
+      - master
 
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  GODOT_VERSION: "4.6"
+  GODOT_FILENAME: "Godot_v$(GODOT_VERSION)-stable_linux.x86_64"
+  GODOT_TEMPLATES_FILENAME: "Godot_v$(GODOT_VERSION)-stable_export_templates.tpz"
+  BUTLER_VERSION: "3.10.0"
+
 steps:
 - checkout: self
-  fetchDepth: 0  # Full history ensures safe branching
+  fetchDepth: 0
 
+# ── Mirror to GitHub ──────────────────────────────────────────────────────────
 - script: |
     git config --global user.email $(GITHUB_EMAIL)
     git config --global user.name "Josiah Wirick"
 
     git checkout -b master
 
-    git branch
-    git log --oneline -n 3
-
     git remote add github https://josiahwirick:$(GITHUB_PAT)@github.com/JosiahWirick/look.git
     git push --force github master:master
+  displayName: "Mirror to GitHub"
   env:
     GITHUB_PAT: $(GITHUB_PAT)
+
+# ── Download Godot 4.6 headless + export templates ────────────────────────────
+- script: |
+    set -e
+    mkdir -p /tmp/godot
+
+    echo "Downloading Godot $(GODOT_VERSION)..."
+    wget -q "https://github.com/godotengine/godot/releases/download/$(GODOT_VERSION)-stable/$(GODOT_FILENAME).zip" \
+      -O /tmp/godot/godot.zip
+    unzip -q /tmp/godot/godot.zip -d /tmp/godot
+    chmod +x "/tmp/godot/$(GODOT_FILENAME)"
+    sudo ln -sf "/tmp/godot/$(GODOT_FILENAME)" /usr/local/bin/godot
+
+    echo "Downloading export templates..."
+    wget -q "https://github.com/godotengine/godot/releases/download/$(GODOT_VERSION)-stable/$(GODOT_TEMPLATES_FILENAME)" \
+      -O /tmp/godot/templates.tpz
+    mkdir -p "$HOME/.local/share/godot/export_templates/$(GODOT_VERSION).stable"
+    unzip -q /tmp/godot/templates.tpz -d /tmp/godot/templates_extracted
+    mv /tmp/godot/templates_extracted/templates/* \
+      "$HOME/.local/share/godot/export_templates/$(GODOT_VERSION).stable/"
+
+    echo "Godot version:"
+    godot --version
+  displayName: "Install Godot $(GODOT_VERSION)"
+
+# ── Export: Windows Desktop ───────────────────────────────────────────────────
+- script: |
+    set -e
+    mkdir -p $(Build.ArtifactStagingDirectory)/windows
+
+    echo "Exporting Windows Desktop build..."
+    godot --headless --path "$(Build.SourcesDirectory)" \
+      --export-release "Windows Desktop" \
+      "$(Build.ArtifactStagingDirectory)/windows/look.exe"
+
+    echo "Zipping Windows build..."
+    cd "$(Build.ArtifactStagingDirectory)/windows"
+    zip -r "$(Build.ArtifactStagingDirectory)/look-windows.zip" .
+
+    echo "Windows export complete."
+  displayName: "Export: Windows Desktop"
+
+# ── Export: Linux ─────────────────────────────────────────────────────────────
+- script: |
+    set -e
+    mkdir -p $(Build.ArtifactStagingDirectory)/linux
+
+    echo "Exporting Linux build..."
+    godot --headless --path "$(Build.SourcesDirectory)" \
+      --export-release "Linux" \
+      "$(Build.ArtifactStagingDirectory)/linux/look.x86_64"
+
+    echo "Zipping Linux build..."
+    cd "$(Build.ArtifactStagingDirectory)/linux"
+    zip -r "$(Build.ArtifactStagingDirectory)/look-linux.zip" .
+
+    echo "Linux export complete."
+  displayName: "Export: Linux"
+
+# ── Download butler (itch.io CLI) ─────────────────────────────────────────────
+- script: |
+    set -e
+    echo "Downloading butler $(BUTLER_VERSION)..."
+    wget -q "https://broth.itch.ovh/butler/linux-amd64/$(BUTLER_VERSION)/archive/default" \
+      -O /tmp/butler.zip
+    unzip -q /tmp/butler.zip -d /tmp/butler
+    chmod +x /tmp/butler/butler
+    sudo ln -sf /tmp/butler/butler /usr/local/bin/butler
+
+    echo "Butler version:"
+    butler version
+  displayName: "Install butler"
+
+# ── Push to itch.io ───────────────────────────────────────────────────────────
+- script: |
+    set -e
+    echo "Pushing Windows build to itch.io..."
+    butler push \
+      "$(Build.ArtifactStagingDirectory)/look-windows.zip" \
+      "saihgames/look:windows"
+
+    echo "Pushing Linux build to itch.io..."
+    butler push \
+      "$(Build.ArtifactStagingDirectory)/look-linux.zip" \
+      "saihgames/look:linux"
+
+    echo "All builds pushed to itch.io!"
+  displayName: "Push to itch.io via butler"
+  env:
+    BUTLER_API_KEY: $(ITCH_KEY)
