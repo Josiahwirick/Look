@@ -10,7 +10,7 @@ variables:
   GODOT_VERSION: "4.6"
   GODOT_FILENAME: "Godot_v$(GODOT_VERSION)-stable_linux.x86_64"
   GODOT_TEMPLATES_FILENAME: "Godot_v$(GODOT_VERSION)-stable_export_templates.tpz"
-  BUTLER_VERSION: "3.10.0"
+  BUTLER_LINK: "https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default"
 
 steps:
 - checkout: self
@@ -91,7 +91,7 @@ steps:
 - script: |
     set -e
     echo "Downloading butler $(BUTLER_VERSION)..."
-    wget -q "https://broth.itch.ovh/butler/linux-amd64/$(BUTLER_VERSION)/archive/default" \
+    wget -q "$(BUTLER_LINK)" \
       -O /tmp/butler.zip
     unzip -q /tmp/butler.zip -d /tmp/butler
     chmod +x /tmp/butler/butler
