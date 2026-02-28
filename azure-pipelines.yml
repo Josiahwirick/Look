@@ -53,6 +53,34 @@ steps:
     godot --version
   displayName: "Install Godot $(GODOT_VERSION)"
 
+# ── Download: Needed assets
+- task: DownloadSecureFile@1
+  name: animationsZip
+  displayName: "Download Animations.zip"
+  inputs:
+    secureFile: 'Animations.zip'
+
+- task: DownloadSecureFile@1
+  name: charactersZip
+  displayName: "Download Characters.zip"
+  inputs:
+    secureFile: 'Characters.zip'
+
+- task: DownloadSecureFile@1
+  name: fbxZip
+  displayName: "Download Fbx.zip"
+  inputs:
+    secureFile: 'Fbx.zip'
+
+- script: |
+    set -e
+    echo "Extracting licensed assets..."
+    unzip -q "$(animationsZip.secureFilePath)" -d "$(Build.SourcesDirectory)"
+    unzip -q "$(charactersZip.secureFilePath)" -d "$(Build.SourcesDirectory)"
+    unzip -q "$(fbxZip.secureFilePath)" -d "$(Build.SourcesDirectory)"
+    echo "Assets extracted."
+  displayName: "Extract licensed assets"
+
 # ── Export: Windows Desktop ───────────────────────────────────────────────────
 - script: |
     set -e
